@@ -26,8 +26,6 @@ cat <<EOL > "$STATE_FILE"
 
 part of '${FEATURE_NAME_LOWER}_cubit.dart';
 
-enum ${FEATURE_NAME_CAP}Status { initial, loading, success, error }
-
 class ${FEATURE_NAME_CAP}State  extends BaseState {
 
 

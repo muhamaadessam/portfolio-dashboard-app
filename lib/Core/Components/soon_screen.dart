@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_app/Core/core.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SoonScreen extends StatelessWidget {
   const SoonScreen({super.key});

@@ -17,7 +17,7 @@ class CustomShimmer extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: const Color(0xfff2f2f2).withValues(alpha: .8),
       highlightColor: const Color(0xffe4e4e4).withValues(alpha: 0),
-      direction: ShimmerDirection.rtl,
+      direction: ShimmerDirection.ltr,
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius), color: Colors.white),

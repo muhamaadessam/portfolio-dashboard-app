@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../Extensions/context_extension.dart';
 import 'hex_color.dart';
-import 'package:flutter/material.dart';
 
 // const Color backgroundColor = Color(0xff282C33);
 // const Color grayColor = Color(0xffABB2BF);
@@ -29,7 +28,7 @@ class AppColors {
   static Color orderProductColor = HexColor('#33a9ff');
 
   static Color textColor = Colors.black;
-  static Color secondTextColor = HexColor('#4A5E6D');
+  static Color secondTextColor = HexColor('#ABB2BF');
   static Color borderColor = Colors.black.withValues(alpha: .25);
 
   static Color reverseTextColor(BuildContext context) =>

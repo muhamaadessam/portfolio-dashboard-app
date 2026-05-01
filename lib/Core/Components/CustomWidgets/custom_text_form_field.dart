@@ -52,15 +52,12 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: color,
-      textDirection: TextDirection.rtl,
+      textDirection: TextDirection.ltr,
       maxLength: maxLength,
       maxLines: maxLines,
       textInputAction: textInputAction,
       keyboardType: keyboardType,
-      style: TextStyle(
-        fontFamily: 'Cairo',
-        color: textColor,
-      ),
+      style: TextStyle(fontFamily: 'Cairo', color: textColor),
       decoration: InputDecoration(
         counterStyle: TextStyle(
           fontWeight: FontWeight.normal,
@@ -73,14 +70,16 @@ class CustomTextFormField extends StatelessWidget {
         filled: fillColor == null ? false : true,
         hintText: hint,
         labelText: label,
-        labelStyle: labelStyle ??
+        labelStyle:
+            labelStyle ??
             const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 12,
               color: Color(0xffd8d8d8),
               fontFamily: 'Cairo',
             ),
-        hintStyle: hintStyle ??
+        hintStyle:
+            hintStyle ??
             const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 12,
