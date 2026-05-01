@@ -1,4 +1,4 @@
-# portfolio_app
+# portfolio-dashboard-app
 
 A new Flutter project.
 

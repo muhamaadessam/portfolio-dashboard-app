@@ -1,6 +1,6 @@
 {
-    "name": "portfolio_app",
-    "short_name": "portfolio_app",
+    "name": "portfolio-dashboard-app",
+    "short_name": "portfolio-dashboard-app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
