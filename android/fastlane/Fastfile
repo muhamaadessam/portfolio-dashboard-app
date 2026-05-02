@@ -1,5 +1,4 @@
-def increment_flutter_version(type)
-
+def get_flutter_version
   project_root = sh("git rev-parse --show-toplevel").strip
   version_file = File.join(project_root, "pubspec.yaml")
 
@@ -11,52 +10,21 @@ def increment_flutter_version(type)
   major = match[1].to_i
   minor = match[2].to_i
   patch = match[3].to_i
-  build = match[4].to_i + 1
+  build = match[4].to_i
 
-  case type
-  when "major"
-    major += 1
-    minor = 0
-    patch = 0
-  when "minor"
-    minor += 1
-    patch = 0
-  else
-    patch += 1
-  end
+  current_version = "#{major}.#{minor}.#{patch}+#{build}"
 
-  new_version = "#{major}.#{minor}.#{patch}+#{build}"
+  puts "📦 Current Flutter version: #{current_version}"
 
-  updated_content = content.sub(
-    /version:\s\d+\.\d+\.\d+\+\d+/,
-    "version: #{new_version}"
-  )
-
-  File.write(version_file, updated_content)
-
-  puts "✅ pubspec.yaml updated to #{new_version}"
-
-  return new_version
+  return current_version
 end
 
 
 platform :android do
 
-  lane :patch do
-    increment_flutter_version("patch")
-  end
-
-  lane :minor do
-    increment_flutter_version("minor")
-  end
-
-  lane :major do
-    increment_flutter_version("major")
-  end
-
   lane :beta do
 
-   new_version = increment_flutter_version("patch")
+   new_version = get_flutter_version("patch")
 
     sh("flutter pub get")
     sh("flutter build apk --release --no-tree-shake-icons")
