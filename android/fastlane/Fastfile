@@ -24,14 +24,12 @@ platform :android do
 
   lane :beta do
 
-   new_version = get_flutter_version("patch")
+   new_version = get_flutter_version
 
     sh("flutter pub get")
     sh("flutter build apk --release --no-tree-shake-icons")
 
-    add_git_tag(
-      tag: "v#{new_version}"
-    )
+
 
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
