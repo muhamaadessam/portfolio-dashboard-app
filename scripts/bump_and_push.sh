@@ -38,7 +38,7 @@ git config user.name "ci-bot"
 # ==============================
 # 👇 أهم سطر في الحل كله
 # ==============================
-git add -A
+git add .
 
 git commit -m "chore: bump version to $NEW_VERSION & deploy" || echo "No changes to commit"
 
