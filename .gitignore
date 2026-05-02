@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter
+build/
+.flutter-plugins
+
+# Android
+android/.gradle/
+android/app/build/
+
+# Ruby bundler (IMPORTANT)
+android/vendor/
+vendor/bundle/
