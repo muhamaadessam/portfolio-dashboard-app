@@ -54,4 +54,4 @@ android/app/build/
 
 # Ruby bundler (IMPORTANT)
 android/vendor/
-vendor/bundle/
+vendor/bundle/android/vendor/
