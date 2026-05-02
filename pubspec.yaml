@@ -59,6 +59,8 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   flutter_screenutil: ^5.9.3
   logscope_flutter: ^0.3.6
+  firebase_storage: ^13.3.0
+  image_picker: ^1.2.2
 
 dev_dependencies:
   flutter_test:

@@ -1,13 +1,32 @@
-// GENERATED FILE - DO NOT EDIT
-
 import 'package:equatable/equatable.dart';
 
 class ProjectsEntity extends Equatable {
-  final int id;
-  final String name;
+  final String id;
+  final String projectName;
+  final String projectDescription;
+  final String projectImage;
+  final List<String> projectLanguages;
+  final String? googlePlayLink;
+  final String? appStoreLink;
 
-  const ProjectsEntity({required this.id, required this.name});
+  ProjectsEntity({
+    required this.id,
+    required this.projectName,
+    required this.projectDescription,
+    required this.projectImage,
+    required this.projectLanguages,
+    this.googlePlayLink,
+    this.appStoreLink,
+  });
 
   @override
-  List<Object> get props => [id, name];
+  List<Object?> get props => [
+    id,
+    projectName,
+    projectDescription,
+    projectImage,
+    projectLanguages,
+    googlePlayLink,
+    appStoreLink,
+  ];
 }

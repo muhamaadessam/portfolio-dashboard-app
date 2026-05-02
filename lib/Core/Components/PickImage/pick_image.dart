@@ -1,25 +1,48 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:portfolio_app/Core/AppData/app_data.dart';
 
-Future<File?> pickImage() async {
-  FilePickerResult? result;
-  String? fileName;
-  PlatformFile? pickedFile;
-  File? fileToDisplay;
+Future<Uint8List?> pickImage() async {
   try {
-    result = await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      fileName = result.files.first.name;
-      pickedFile = result.files.first;
-      fileToDisplay = File(pickedFile.path.toString());
-    }
-    debugPrint(fileName);
+    final picker = ImagePicker();
 
-    return fileToDisplay;
-  } catch (error) {
-    debugPrint(error.toString());
+    final XFile? file = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+
+    if (file == null) return null;
+
+    final Uint8List bytes = await file.readAsBytes();
+
+    return bytes;
+  } catch (e) {
+    rethrow;
+  }
+}
+
+Future<String> uploadImageToCloudinary(Uint8List imageBytes) async {
+  print('==> uploadImageToCloudinary $imageBytes');
+  try {
+    const cloudName = 'dxty2amiw';
+    const uploadPreset = 'portfolio_uploads';
+    final Dio dio = DioHelper.dio!;
+
+    final url = 'https://api.cloudinary.com/v1_1/$cloudName/image/upload';
+
+    final formData = FormData.fromMap({
+      'upload_preset': uploadPreset,
+      'file': MultipartFile.fromBytes(imageBytes, filename: 'project.png'),
+    });
+
+    final response = await dio.post(url, data: formData);
+    print('==> ${response.data}');
+    return response.data['secure_url'];
+  } catch (e) {
+    print('==> $e');
     rethrow;
   }
 }

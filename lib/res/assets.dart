@@ -3,14 +3,10 @@ class Assets {
   Assets._();
 
   static const String aboutMeImage = 'assets/images/aboutMeImage.png';
-  static const String ceo = 'assets/images/ceo.jpg';
-  static const String ceoBuffet = 'assets/images/ceoBuffet.jpg';
-  static const String mudawi = 'assets/images/mudawi.jpg';
   static const String myFunFacts = 'assets/images/myFunFacts.png';
   static const String myFunFactsImage = 'assets/images/myFunFactsImage.png';
   static const String profileImage = 'assets/images/profileImage.png';
   static const String skillsImage = 'assets/images/skillsImage.png';
-  static const String sportsmanship = 'assets/images/sportsmanship.jpg';
   static const String dots = 'assets/icons/dots.png';
   static const String facebook = 'assets/icons/facebook.png';
   static const String github = 'assets/icons/github.png';

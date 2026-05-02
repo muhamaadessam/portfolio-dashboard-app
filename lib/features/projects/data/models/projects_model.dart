@@ -1,12 +1,42 @@
-// GENERATED FILE - DO NOT EDIT
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../projects.dart';
+import '../../domain/entities/projects_entity.dart';
 
 class ProjectsModel extends ProjectsEntity {
-  const ProjectsModel({required super.id, required super.name});
+  ProjectsModel({
+    required super.id,
+    required super.projectName,
+    required super.projectDescription,
+    required super.projectImage,
+    required super.projectLanguages,
+    super.googlePlayLink,
+    super.appStoreLink,
+  });
 
-  factory ProjectsModel.fromJson(Map<String, dynamic> json) => ProjectsModel(
-        id: json['id'],
-        name: json['name'],
-      );
+  factory ProjectsModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> doc,
+  ) {
+    final json = doc.data()!;
+
+    return ProjectsModel(
+      id: doc.id,
+      projectName: json['projectName'],
+      projectDescription: json['projectDescription'],
+      projectImage: json['projectImage'],
+      projectLanguages: List<String>.from(json['projectLanguages']),
+      googlePlayLink: json['googlePlayLink'],
+      appStoreLink: json['appStoreLink'],
+    );
+  }
+
+  toJson() {
+    return {
+      'projectName': projectName,
+      'projectDescription': projectDescription,
+      'projectImage': projectImage,
+      'projectLanguages': projectLanguages,
+      'googlePlayLink': googlePlayLink,
+      'appStoreLink': appStoreLink,
+    };
+  }
 }

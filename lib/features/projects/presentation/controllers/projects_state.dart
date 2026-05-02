@@ -2,27 +2,40 @@
 
 part of 'projects_cubit.dart';
 
-enum ProjectsStatus { initial, loading, success, error }
+class ProjectsState extends BaseState {
+  final List<ProjectsEntity> projects;
 
-class ProjectsState  extends BaseState {
+  const ProjectsState({
+    super.pageState,
+    super.failure,
+    super.successIcon,
+    super.successMessage,
+    this.projects = const [],
+  });
 
-
- const ProjectsState({
-                                    super.pageState,
-                                    super.failure,
-                                    super.successIcon,
-                                    super.successMessage,
-                                  });
   @override
   ProjectsState copyWith({
-                                        PageState? pageState,
-                                        Failure? failure,
-                                        String? successMessage,
-                                        String? successIcon,
-                                      }) {
-    return ProjectsState(pageState: pageState ?? this.pageState,
-                                          failure: failure ?? this.failure,
-                                          successMessage: successMessage ?? this.successMessage,
-                                          successIcon: successIcon ?? this.successIcon,);
+    PageState? pageState,
+    Failure? failure,
+    String? successMessage,
+    String? successIcon,
+    List<ProjectsEntity>? projects,
+  }) {
+    return ProjectsState(
+      pageState: pageState ?? this.pageState,
+      failure: failure ?? this.failure,
+      successMessage: successMessage ?? this.successMessage,
+      successIcon: successIcon ?? this.successIcon,
+      projects: projects ?? this.projects,
+    );
   }
+
+  @override
+  List<Object?> get props => [
+    pageState,
+    failure,
+    successMessage,
+    successIcon,
+    projects,
+  ];
 }

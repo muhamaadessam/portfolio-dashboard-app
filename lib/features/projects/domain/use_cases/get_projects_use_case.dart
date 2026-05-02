@@ -2,35 +2,37 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+
 import '../../projects.dart';
 
-class GetProjectsUseCase extends BaseUseCase<void, ProjectsUseCaseParams> {
+class GetProjectsUseCase
+    extends BaseUseCase<ProjectsResponse, ProjectsRequest> {
   final BaseProjectsRepository repository;
 
   GetProjectsUseCase(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(ProjectsUseCaseParams params) async {
+  Future<Either<Failure, ProjectsResponse>> call(ProjectsRequest params) async {
     return await repository.getProjects(params);
   }
 }
 
-class ProjectsUseCaseParams extends Equatable {
-  final int id;
-  final String name;
+class ProjectsRequest extends Equatable {
+  const ProjectsRequest();
 
-  const ProjectsUseCaseParams({
-    required this.id,
-    required this.name,
-  });
-
-    toJson() {
-      return {
-        'id': id,
-        'name': name,
-      };
-    }
+  toJson() {
+    // return {'id': id, 'name': name};
+  }
 
   @override
-  List<Object?> get props => [id, name];
+  List<Object?> get props => [];
+}
+
+class ProjectsResponse extends Equatable {
+  final List<ProjectsEntity> projects;
+
+  const ProjectsResponse({required this.projects});
+
+  @override
+  List<Object?> get props => [projects];
 }

@@ -1,0 +1,40 @@
+platform :android do
+
+  lane :patch do
+    increment_flutter_version("patch")
+  end
+
+  lane :minor do
+    increment_flutter_version("minor")
+  end
+
+  lane :major do
+    increment_flutter_version("major")
+  end
+
+  lane :beta do
+
+    increment_flutter_version("patch")
+
+    sh("flutter clean")
+    sh("flutter pub get")
+
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+    add_git_tag(
+      tag: "v#{new_version}"
+    )
+    commit_version_bump(
+      message: "Bump version"
+    )
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      testers: "muhammad159e@gmail.com",
+      release_notes: git_commit_message,
+      aab_path: "../build/app/outputs/bundle/release/app-release.aab"
+    )
+  end
+end
