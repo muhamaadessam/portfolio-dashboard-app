@@ -1,9 +1,12 @@
 def increment_flutter_version(type)
 
-version_file = File.expand_path("../../pubspec.yaml", __dir__)
+  project_root = sh("git rev-parse --show-toplevel").strip
+  version_file = File.join(project_root, "pubspec.yaml")
+
   content = File.read(version_file)
 
   match = content.match(/version:\s(\d+)\.(\d+)\.(\d+)\+(\d+)/)
+  raise "Version not found in pubspec.yaml" unless match
 
   major = match[1].to_i
   minor = match[2].to_i
@@ -31,10 +34,11 @@ version_file = File.expand_path("../../pubspec.yaml", __dir__)
 
   File.write(version_file, updated_content)
 
-  puts "Updated version to #{new_version}"
+  puts "✅ pubspec.yaml updated to #{new_version}"
 
   return new_version
 end
+
 
 platform :android do
 
@@ -54,21 +58,12 @@ platform :android do
 
    new_version = increment_flutter_version("patch")
 
-#     sh("flutter clean")
+    sh("flutter pub get")
     sh("flutter build apk --release --no-tree-shake-icons")
 
     add_git_tag(
       tag: "v#{new_version}"
     )
-#
-#   sh("git config --global user.email 'muhammad159e@gmail.com'")
-#   sh("git config --global user.name 'muhamaadessam'")
-#
-#   project_root = sh("git rev-parse --show-toplevel").strip
-#   sh("git add #{project_root}/pubspec.yaml")
-#   sh("git commit -m 'Bump version to #{new_version}' || true")
-#   sh("git push origin main")
-#   sh("git push origin v#{new_version}")
 
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
