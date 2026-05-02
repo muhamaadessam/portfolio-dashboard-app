@@ -52,7 +52,7 @@ platform :android do
 
   lane :beta do
 
-    increment_flutter_version("patch")
+   new_version = increment_flutter_version("patch")
 
     sh("flutter clean")
     sh("flutter pub get")
@@ -72,7 +72,6 @@ platform :android do
       android_artifact_type: "APK",
       android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
       release_notes: git_commit_message,
-      aab_path: "../build/app/outputs/bundle/release/app-release.aab"
     )
   end
 end
