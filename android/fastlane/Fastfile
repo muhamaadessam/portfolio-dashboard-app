@@ -1,3 +1,39 @@
+def increment_flutter_version(type)
+
+version_file = File.expand_path("../../pubspec.yaml", __dir__)
+  content = File.read(version_file)
+
+  match = content.match(/version:\s(\d+)\.(\d+)\.(\d+)\+(\d+)/)
+
+  major = match[1].to_i
+  minor = match[2].to_i
+  patch = match[3].to_i
+  build = match[4].to_i + 1
+
+  case type
+  when "major"
+    major += 1
+    minor = 0
+    patch = 0
+  when "minor"
+    minor += 1
+    patch = 0
+  else
+    patch += 1
+  end
+
+  new_version = "#{major}.#{minor}.#{patch}+#{build}"
+
+  updated_content = content.sub(
+    /version:\s\d+\.\d+\.\d+\+\d+/,
+    "version: #{new_version}"
+  )
+
+  File.write(version_file, updated_content)
+
+  puts "Updated version to #{new_version}"
+end
+
 platform :android do
 
   lane :patch do
@@ -20,12 +56,14 @@ platform :android do
     sh("flutter pub get")
 
     gradle(
-      task: "bundle",
+      task: "assemble",
       build_type: "Release"
     )
+
     add_git_tag(
       tag: "v#{new_version}"
     )
+
     commit_version_bump(
       message: "Bump version"
     )
