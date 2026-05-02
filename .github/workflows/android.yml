@@ -85,6 +85,83 @@
 #        env:
 #          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
 #          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+#
+#name: Android Beta Deploy
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#
+#jobs:
+#  deploy:
+#    runs-on: macos-latest
+#
+#    env:
+#      GRADLE_OPTS: -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true -Dorg.gradle.caching=true
+#
+#    steps:
+#      # ================= Checkout =================
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      # ================= Flutter =================
+#      - name: Setup Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
+#          flutter-version: 3.41.6
+#          cache: true
+#
+#      - name: Cache Pub Dependencies
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.pub-cache
+#          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+#
+#      - name: Install dependencies
+#        run: flutter pub get
+#
+#      # ================= Java =================
+#      - name: Setup Java
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: temurin
+#          java-version: 17
+#
+#      # ================= Gradle Cache (IMPORTANT) =================
+#      - name: Cache Gradle
+#        uses: actions/cache@v4
+#        with:
+#          path: |
+#            ~/.gradle/caches
+#            ~/.gradle/wrapper
+#          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
+#          restore-keys: |
+#            gradle-${{ runner.os }}-
+#
+#      # ================= Firebase CLI =================
+#      - name: Install Firebase CLI
+#        run: npm install -g firebase-tools
+#
+#      # ================= Bundler =================
+#      - name: Install Bundler
+#        run: gem install bundler
+#
+#      - name: Install Ruby Gems
+#        run: |
+#          cd android
+#          bundle config set path vendor/bundle
+#          bundle install
+#
+#      # ================= Build ONLY =================
+#      - name: Build APK with Fastlane
+#        run: |
+#          cd android
+#          bundle exec fastlane android beta
+#        env:
+#          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+#          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
 name: Android Beta Deploy
 
@@ -99,6 +176,7 @@ jobs:
 
     env:
       GRADLE_OPTS: -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true -Dorg.gradle.caching=true
+      ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
 
     steps:
       # ================= Checkout =================
@@ -116,7 +194,9 @@ jobs:
       - name: Cache Pub Dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.pub-cache
+          path: |
+            ~/.pub-cache
+            .dart_tool
           key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
 
       - name: Install dependencies
@@ -129,13 +209,26 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # ================= Gradle Cache (IMPORTANT) =================
+      # ================= Android SDK (FIX for your issue) =================
+      - name: Accept Android Licenses
+        run: yes | sdkmanager --licenses || true
+
+      - name: Install Required SDKs (prevent re-download every time)
+        run: |
+          sdkmanager "platform-tools" \
+                     "platforms;android-33" \
+                     "platforms;android-31" \
+                     "build-tools;33.0.2" \
+                     "cmake;3.22.1" || true
+
+      # ================= Gradle Cache =================
       - name: Cache Gradle
         uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
+            ~/.android/cache
           key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
           restore-keys: |
             gradle-${{ runner.os }}-
@@ -152,9 +245,9 @@ jobs:
         run: |
           cd android
           bundle config set path vendor/bundle
-          bundle install
+          bundle install --deployment --without development test
 
-      # ================= Build ONLY =================
+      # ================= FAST BUILD =================
       - name: Build APK with Fastlane
         run: |
           cd android
