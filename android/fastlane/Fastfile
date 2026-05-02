@@ -32,6 +32,8 @@ version_file = File.expand_path("../../pubspec.yaml", __dir__)
   File.write(version_file, updated_content)
 
   puts "Updated version to #{new_version}"
+
+  return new_version
 end
 
 platform :android do
