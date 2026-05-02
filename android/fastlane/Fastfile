@@ -56,11 +56,7 @@ platform :android do
 
     sh("flutter clean")
     sh("flutter pub get")
-
-    gradle(
-      task: "assemble",
-      build_type: "Release"
-    )
+    sh("flutter build apk --release --no-tree-shake-icons")
 
     add_git_tag(
       tag: "v#{new_version}"
@@ -73,6 +69,8 @@ platform :android do
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
       testers: "muhammad159e@gmail.com",
+      android_artifact_type: "APK",
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
       release_notes: git_commit_message,
       aab_path: "../build/app/outputs/bundle/release/app-release.aab"
     )
