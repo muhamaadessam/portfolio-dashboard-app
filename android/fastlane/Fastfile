@@ -64,7 +64,8 @@ platform :android do
   sh("git config --global user.email 'muhammad159e@gmail.com'")
   sh("git config --global user.name 'muhamaadessam'")
 
-  sh("git add pubspec.yaml")
+  project_root = sh("git rev-parse --show-toplevel").strip
+  sh("git add #{project_root}/pubspec.yaml")
   sh("git commit -m 'Bump version to #{new_version}' || true")
   sh("git push origin main")
   sh("git push origin v#{new_version}")
