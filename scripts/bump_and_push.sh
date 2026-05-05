@@ -22,7 +22,23 @@ PATCH_BUILD=$(echo "$VERSION" | cut -d. -f3)
 PATCH=$(echo "$PATCH_BUILD" | cut -d+ -f1)
 BUILD=$(echo "$PATCH_BUILD" | cut -d+ -f2)
 
+# ==============================
+# 🚀 INCREMENT LOGIC
+# ==============================
+
 BUILD=$((BUILD + 1))
+
+if [ "$BUILD" -ge 50 ]; then
+  BUILD=0
+  MINOR=$((MINOR + 1))
+fi
+
+if [ "$MINOR" -ge 50 ]; then
+  MINOR=0
+  MAJOR=$((MAJOR + 1))
+fi
+
+PATCH=0
 
 NEW_VERSION="$MAJOR.$MINOR.$PATCH+$BUILD"
 
