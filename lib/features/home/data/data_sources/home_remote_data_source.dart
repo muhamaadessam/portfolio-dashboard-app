@@ -28,11 +28,12 @@ class HomeRemoteDataSource implements BaseHomeRemoteDataSource {
       if (!doc.exists || doc.data() == null) {
         return const Left(DatabaseFailure('visitors data not found'));
       }
-
+      print(doc.data());
       final response = GetVisitorsResponse.fromJson(doc.data()!);
 
       return Right(response);
     } catch (e) {
+      print(e);
       return Left(DatabaseFailure(e.toString()));
     }
   }

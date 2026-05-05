@@ -5,7 +5,7 @@ part of 'home_cubit.dart';
 enum HomeStatus { initial, loading, success, error }
 
 class HomeState extends BaseState {
-  final int cVDownloadsCount;
+  final DownloadsEntity? cVDownloadsCount;
   final VisitesEntity? visitesEntity;
 
   const HomeState({
@@ -13,7 +13,7 @@ class HomeState extends BaseState {
     super.failure,
     super.successIcon,
     super.successMessage,
-    this.cVDownloadsCount = 0,
+    this.cVDownloadsCount,
     this.visitesEntity,
   });
 
@@ -23,7 +23,7 @@ class HomeState extends BaseState {
     Failure? failure,
     String? successMessage,
     String? successIcon,
-    int? cVDownloadsCount,
+    DownloadsEntity? cVDownloadsCount,
     VisitesEntity? visitesEntity,
   }) {
     return HomeState(

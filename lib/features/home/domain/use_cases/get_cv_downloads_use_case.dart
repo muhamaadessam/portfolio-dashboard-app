@@ -3,7 +3,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/downloads_model.dart';
 import '../../home.dart';
+import '../entities/downloads_entity.dart';
 
 class GetCvDownloadsUseCase
     extends BaseUseCase<GetCvDownloadsResponse, GetCvDownloadsRequest> {
@@ -27,16 +29,16 @@ class GetCvDownloadsRequest extends Equatable {
 }
 
 class GetCvDownloadsResponse extends Equatable {
-  final int count;
+  final DownloadsEntity downloads;
 
-  const GetCvDownloadsResponse({required this.count});
+  const GetCvDownloadsResponse({required this.downloads});
 
   factory GetCvDownloadsResponse.fromJson(Map<String, dynamic> json) {
     return GetCvDownloadsResponse(
-      count: json['count'],
+      downloads: DownloadsModel.fromJson(json),
     );
   }
 
   @override
-  List<Object?> get props => [count];
+  List<Object?> get props => [downloads];
 }

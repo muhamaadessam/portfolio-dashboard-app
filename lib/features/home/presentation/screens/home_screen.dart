@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../home.dart';
+import 'users_screen.dart';
 
 class HomeScreen extends BaseView<HomeCubit, HomeState> {
   HomeScreen({super.key});
@@ -33,19 +34,36 @@ class HomeScreen extends BaseView<HomeCubit, HomeState> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
                   cubit.gridItems.length,
-                  (index) => Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.mainColor),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: .center,
-                      crossAxisAlignment: .center,
-                      spacing: 10.h,
-                      children: [
-                        TextBody14(cubit.gridItems[index]),
-                        TextBody14(cubit.gridValues[index].toString()),
-                      ],
+                  (index) => GestureDetector(
+                    onTap: () {
+                      if (index == 1 || index == 3)
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => UsersScreen(
+                              title: cubit.gridItems[index],
+                              users: index == 1
+                                  ? state.cVDownloadsCount?.users ?? {}
+                                  : index == 3
+                                  ? state.visitesEntity?.users ?? {}
+                                  : {},
+                            ),
+                          ),
+                        );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.mainColor),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: .center,
+                        crossAxisAlignment: .center,
+                        spacing: 10.h,
+                        children: [
+                          FittedBox(child: TextBody14(cubit.gridItems[index])),
+                          TextBody14(cubit.gridValues[index].toString()),
+                        ],
+                      ),
                     ),
                   ),
                 ),

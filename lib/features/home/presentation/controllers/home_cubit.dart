@@ -5,6 +5,7 @@ import 'package:portfolio_app/features/home/domain/use_cases/get_cv_downloads_us
 
 import '../../../projects/projects.dart';
 import '../../../skills/skills.dart';
+import '../../domain/entities/downloads_entity.dart';
 import '../../home.dart';
 
 part 'home_state.dart';
@@ -16,10 +17,11 @@ class HomeCubit extends BaseCubit<HomeState> {
   HomeCubit(this.getHomeUseCase, this._getCvDownloadsUseCase)
     : super(HomeState());
 
-  List<String> get gridItems => ['CV Downloads', 'Visits', 'Visitors'];
+  List<String> get gridItems => ['CV Downloads','CV Downloaders', 'Visits', 'Visitors'];
 
   List<int> get gridValues => [
-    state.cVDownloadsCount,
+    state.cVDownloadsCount?.totalDownloads ?? 0,
+    state.cVDownloadsCount?.totalDownloaders ?? 0,
     state.visitesEntity?.totalVisits ?? 0,
     state.visitesEntity?.totalVisitors ?? 0,
   ];
@@ -79,7 +81,7 @@ class HomeCubit extends BaseCubit<HomeState> {
           emit(
             state.copyWith(
               pageState: PageState.success,
-              cVDownloadsCount: data.count,
+              cVDownloadsCount: data.downloads,
             ),
           );
         },
