@@ -30,7 +30,7 @@ class ProjectCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 8,
               children: [
-                TextTitle(project.projectName, color: Colors.white),
+                TextTitle(project.projectName),
                 TextBody14(
                   project.projectDescription,
                   color: AppColors.secondTextColor,

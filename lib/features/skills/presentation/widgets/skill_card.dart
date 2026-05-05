@@ -36,7 +36,7 @@ class _SkillCardState extends State<SkillCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      decoration: BoxDecoration(border: Border.all(color: AppColors.mainColor)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,11 +45,11 @@ class _SkillCardState extends State<SkillCard> {
             child: Row(
               mainAxisAlignment: .spaceBetween,
               children: [
-                TextBody14(widget.skill.title, color: Colors.white),
+                TextBody14(widget.skill.title),
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.edit, color: Colors.white),
+                      icon: Icon(Icons.edit),
                       onPressed: () {
                         updateSkillDialog(context);
                       },
@@ -69,7 +69,7 @@ class _SkillCardState extends State<SkillCard> {
           ),
           Container(
             height: 1,
-            color: AppColors.secondTextColor,
+            color: AppColors.mainColor,
             width: double.infinity,
           ),
           Padding(

@@ -11,7 +11,7 @@ class SkillsScreen extends BaseView<SkillsCubit, SkillsState> {
 
   @override
   PreferredSizeWidget? appBar(BuildContext context) =>
-      AppBar(title: const Text('Skills Screen'));
+      CustomAppBar(title: 'Skills Screen');
 
   @override
   Widget body(BuildContext context, SkillsState state) {

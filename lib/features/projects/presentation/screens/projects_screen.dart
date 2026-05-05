@@ -11,7 +11,7 @@ class ProjectsScreen extends BaseView<ProjectsCubit, ProjectsState> {
 
   @override
   PreferredSizeWidget? appBar(BuildContext context) =>
-      AppBar(title: const Text('Projects Screen'));
+      CustomAppBar(title: 'Projects Screen');
 
   @override
   Widget body(BuildContext context, ProjectsState state) {
