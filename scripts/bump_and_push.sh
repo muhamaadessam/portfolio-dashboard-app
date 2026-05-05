@@ -40,7 +40,54 @@ git config user.name "ci-bot"
 # ==============================
 git add .
 
-git commit -m "chore: bump version to $NEW_VERSION & deploy" || echo "No changes to commit"
+
+# ==============================
+# 🧠 SMART COMMIT MESSAGE
+# ==============================
+
+generate_commit_message() {
+  # لو فيه staged diff صغير نستخدمه
+  DIFF=$(git diff --cached --quiet && echo "" || git diff --cached)
+
+  # fallback 1: لو مفيش تغييرات واضحة
+  if [ -z "$DIFF" ]; then
+    echo "chore: update project files"
+    return
+  fi
+
+  # fallback 2: intelligent heuristic بدون AI
+  if git diff --cached --name-only | grep -q "pubspec.yaml"; then
+    echo "chore: bump app version"
+    return
+  fi
+
+  if git diff --cached --name-only | grep -q "lib/"; then
+    echo "feat: update application logic"
+    return
+  fi
+
+  if git diff --cached --name-only | grep -q "assets/"; then
+    echo "chore: update assets"
+    return
+  fi
+
+  if git diff --cached --name-only | grep -q "android\|ios"; then
+    echo "chore: native platform updates"
+    return
+  fi
+
+  # default fallback
+  echo "chore: project update"
+}
+
+COMMIT_MESSAGE=$(generate_commit_message)
+
+FINAL_COMMIT="$COMMIT_MESSAGE (v$NEW_VERSION)"
+
+echo "📝 Commit: $FINAL_COMMIT"
+
+git commit -m "$FINAL_COMMIT" || echo "No changes to commit"
+#git commit -m "chore: bump version to $NEW_VERSION & deploy" || echo "No changes to commit"
 
 git push origin main
 

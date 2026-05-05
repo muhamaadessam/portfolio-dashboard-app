@@ -70,7 +70,7 @@ class HomeScreen extends BaseView<HomeCubit, HomeState> {
               ),
               Column(
                 children: List.generate(
-                  4,
+                  cubit.sectionsTitles.length,
                   (index) => _sectionsItem(
                     context,
                     title: cubit.sectionsTitles[index],

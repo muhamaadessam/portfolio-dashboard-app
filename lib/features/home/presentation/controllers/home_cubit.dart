@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio_app/features/home/domain/use_cases/get_cv_downloads_use_case.dart';
 
+import '../../../fun_facts/presentation/screens/fun_facts_screen.dart';
 import '../../../projects/projects.dart';
 import '../../../skills/skills.dart';
 import '../../domain/entities/downloads_entity.dart';
@@ -17,7 +18,12 @@ class HomeCubit extends BaseCubit<HomeState> {
   HomeCubit(this.getHomeUseCase, this._getCvDownloadsUseCase)
     : super(HomeState());
 
-  List<String> get gridItems => ['CV Downloads','CV Downloaders', 'Visits', 'Visitors'];
+  List<String> get gridItems => [
+    'CV Downloads',
+    'CV Downloaders',
+    'Visits',
+    'Visitors',
+  ];
 
   List<int> get gridValues => [
     state.cVDownloadsCount?.totalDownloads ?? 0,
@@ -31,11 +37,15 @@ class HomeCubit extends BaseCubit<HomeState> {
     'Projects',
     'Fun Facts',
     'Contact',
+    'Info',
+    'links',
   ];
 
   List<Widget> get sectionsScreens => [
     SkillsScreen(),
     ProjectsScreen(),
+    FunFactsScreen(),
+    HomeScreen(),
     HomeScreen(),
     HomeScreen(),
   ];
