@@ -11,8 +11,10 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final entries = users.entries.toList();
-
+    final entries = users.entries.toList()
+      ..sort(
+            (a, b) => int.parse(b.key).compareTo(int.parse(a.key)),
+      );
     return CustomScaffold(
       appBar: CustomAppBar(title: title, withBack: true),
       body: ListView.separated(
@@ -29,7 +31,7 @@ class UsersScreen extends StatelessWidget {
       int.parse(e.key),
     ).toLocal();
 
-    final formattedDate = DateFormat('EEE, MMM d • hh:mm a').format(date);
+    final formattedDate = DateFormat('EEE, MMM d • hh:mm:ss a').format(date);
 
     final visits = e.value;
 
