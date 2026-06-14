@@ -11,7 +11,6 @@ export 'Network/network.dart';
 export 'Network/Local/cache_helper.dart';
 export 'Network/Remote/firebase_notification_helper.dart';
 export 'Network/Remote/constant.dart';
-export 'Network/Remote/pusher_helper.dart';
 export 'Network/Remote/dio_helper.dart';
 export 'Animation/GyroscopeAnimation/gyroscope_effect.dart';
 export 'Animation/GyroscopeAnimation/gyroscope_provider.dart';

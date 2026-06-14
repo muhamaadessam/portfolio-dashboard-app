@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'link_entity.dart';
 
 class ProjectsEntity extends Equatable {
   final String id;
@@ -6,8 +7,10 @@ class ProjectsEntity extends Equatable {
   final String projectDescription;
   final String projectImage;
   final List<String> projectLanguages;
-  final String? googlePlayLink;
-  final String? appStoreLink;
+  final List<LinkEntity> links;
+  final String? category;
+  final String? status;
+  final bool? isFeatured;
 
   ProjectsEntity({
     required this.id,
@@ -15,8 +18,10 @@ class ProjectsEntity extends Equatable {
     required this.projectDescription,
     required this.projectImage,
     required this.projectLanguages,
-    this.googlePlayLink,
-    this.appStoreLink,
+    required this.links,
+    this.category,
+    this.status,
+    this.isFeatured,
   });
 
   @override
@@ -26,7 +31,9 @@ class ProjectsEntity extends Equatable {
     projectDescription,
     projectImage,
     projectLanguages,
-    googlePlayLink,
-    appStoreLink,
+    links,
+    category,
+    status,
+    isFeatured,
   ];
 }

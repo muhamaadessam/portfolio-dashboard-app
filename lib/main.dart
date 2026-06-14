@@ -15,6 +15,10 @@ Future<void> initServices() async {
   await CacheHelper.init();
   await DioHelper.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
+  // Initialize Local Notifications and start listener
+  await LocalNotificationHelper.init();
+
   FlutterNativeSplash.remove();
   debugPrint('All services started...');
 }

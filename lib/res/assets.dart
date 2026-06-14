@@ -2,11 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String aboutMeImage = 'assets/images/aboutMeImage.png';
-  static const String myFunFacts = 'assets/images/myFunFacts.png';
-  static const String myFunFactsImage = 'assets/images/myFunFactsImage.png';
-  static const String profileImage = 'assets/images/profileImage.png';
-  static const String skillsImage = 'assets/images/skillsImage.png';
   static const String dots = 'assets/icons/dots.png';
   static const String facebook = 'assets/icons/facebook.png';
   static const String github = 'assets/icons/github.png';
@@ -15,8 +10,8 @@ class Assets {
   static const String rectangle = 'assets/icons/rectangle.png';
   static const String rightRectangle = 'assets/icons/rightRectangle.png';
   static const String whatsapp = 'assets/icons/whatsapp.png';
-  static const String muhammadEssam = 'assets/pdfs/Muhammad Essam.pdf';
   static const String essamLogo = 'assets/logos/essamLogo.png';
+  static const String essamLogoBorder = 'assets/logos/essamLogoBorder.png';
   static const String essamLogoWithText = 'assets/logos/essamLogoWithText.png';
   static const String alertOctagon = 'assets/png/alert-octagon.png';
   static const String buffetOpen = 'assets/png/buffetOpen.png';
