@@ -12,7 +12,12 @@
           "package_name": "com.essam.muhammad_essam_portfolio"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "12205873374-hr0be1rmcc527oqpb5fejgjevfir0s5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBaUY889TtdWvL-p5OcE5Lcgz4vt4MmnNM"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12205873374-hr0be1rmcc527oqpb5fejgjevfir0s5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -31,7 +41,20 @@
           "package_name": "muhamaadessam.github.io.portfolio_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "12205873374-5nr0e74f5stco6tf9jut2ksbetef30n2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "muhamaadessam.github.io.portfolio_app",
+            "certificate_hash": "4d1006f76a240ca2a6627bc8a39f0a5b1a7143e6"
+          }
+        },
+        {
+          "client_id": "12205873374-hr0be1rmcc527oqpb5fejgjevfir0s5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBaUY889TtdWvL-p5OcE5Lcgz4vt4MmnNM"
@@ -39,7 +62,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12205873374-hr0be1rmcc527oqpb5fejgjevfir0s5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
