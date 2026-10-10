@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../Core/Network/Remote/firebase_notification_helper.dart';
 import 'admin_dashboard.dart';
 
 const _adminUid = 'x4BowypLZRSJ3ptp8CbFuafSFjj1';
@@ -13,6 +14,7 @@ class AdminAuthGate extends StatelessWidget {
 
   static Future<void> _signOut() async {
     await _googleSignInReady;
+    await FirebaseNotificationHelper.unregisterToken(_adminUid);
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn.instance.signOut();
   }
@@ -31,7 +33,7 @@ class AdminAuthGate extends StatelessWidget {
         if (user == null) return const AdminLoginScreen();
         if (user.uid != _adminUid)
           return _UnauthorizedScreen(onSignOut: _signOut);
-        return AdminDashboardScreen(onSignOut: _signOut);
+        return AdminDashboardScreen(onSignOut: _signOut, adminUid: user.uid);
       },
     );
   }

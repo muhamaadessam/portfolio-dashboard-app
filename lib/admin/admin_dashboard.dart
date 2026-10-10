@@ -1,11 +1,21 @@
+import 'dart:async';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import '../Core/Network/Remote/firebase_notification_helper.dart';
+import '../Core/Notifications/local_notification_helper.dart';
 import 'admin_screens.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
-  const AdminDashboardScreen({super.key, required this.onSignOut});
+  const AdminDashboardScreen({
+    super.key,
+    required this.onSignOut,
+    required this.adminUid,
+  });
 
   final Future<void> Function() onSignOut;
+  final String adminUid;
 
   @override
   State<AdminDashboardScreen> createState() => _AdminDashboardScreenState();
@@ -13,6 +23,33 @@ class AdminDashboardScreen extends StatefulWidget {
 
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   int _selectedIndex = 0;
+  StreamSubscription<RemoteMessage>? _notificationTapSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(FirebaseNotificationHelper.init(widget.adminUid));
+    LocalNotificationHelper.onNotificationTap = (_) => _showTelegramActivity();
+    _notificationTapSubscription = FirebaseMessaging.onMessageOpenedApp.listen(
+      (_) => _showTelegramActivity(),
+    );
+    unawaited(
+      FirebaseMessaging.instance.getInitialMessage().then((message) {
+        if (message != null) _showTelegramActivity();
+      }),
+    );
+  }
+
+  void _showTelegramActivity() {
+    if (mounted) setState(() => _selectedIndex = 6);
+  }
+
+  @override
+  void dispose() {
+    unawaited(_notificationTapSubscription?.cancel());
+    LocalNotificationHelper.onNotificationTap = null;
+    super.dispose();
+  }
 
   static const _sections = [
     ('Overview', Icons.dashboard_outlined),
