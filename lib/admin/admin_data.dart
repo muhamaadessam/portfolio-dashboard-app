@@ -143,7 +143,9 @@ class AdminData {
         if (entry.value is num) entry.key: (entry.value as num).toInt(),
     };
     final projectEvents = snapshots[4].data() ?? <String, dynamic>{};
-    final projects = snapshots[5].docs.map((doc) {
+    final projectSnapshot =
+        snapshots[5] as QuerySnapshot<Map<String, dynamic>>;
+    final projects = projectSnapshot.docs.map((doc) {
       final data = doc.data();
       final id = _asString(data['id']) ?? doc.id;
       final name = _asString(data['projectName']) ?? id;

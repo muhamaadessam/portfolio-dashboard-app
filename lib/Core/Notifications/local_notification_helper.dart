@@ -9,7 +9,7 @@ class LocalNotificationHelper {
 
   static Future<void> init() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('ceo');
+        AndroidInitializationSettings('ic_stat_notification');
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
           requestSoundPermission: true,
